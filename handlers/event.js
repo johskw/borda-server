@@ -2,16 +2,16 @@ const Event = require('../models/event');
 
 module.exports = {
   show: (req, res) => {
-    const event = {
-      theme: "test theme",
-      detail: "test detail",
-      choices: [
-        "test choice 1",
-        "test choice 2",
-        "test choice 3"
-      ]
-    };
-    res.send(event);
+    Event.findById(req.params.id).exec((err, event) => {
+      if (err) {
+        res.status(500).send(err);
+      }
+      res.send({
+        theme: event.theme,
+        detail: event.detail,
+        choices: event.choices
+      });
+    });
   },
   create: (req, res) => {
     const event = new Event({
