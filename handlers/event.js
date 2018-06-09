@@ -15,15 +15,15 @@ module.exports = {
   },
   create: (req, res) => {
     const event = new Event({
-      theme: req.body.event.theme,
-      detail: req.body.event.detail,
-      choices: req.body.event.choices.map(choice => ({ name: choice })),
-      password: req.body.event.password
+      theme: req.body.theme,
+      detail: req.body.detail,
+      choices: req.body.choices.map(choice => ({ name: choice })),
+      password: req.body.password
     });
     event.save().then(() => {
       res.status(201).send(event);
     }).catch((err) => {
-      res.status(500).send(err);
+      res.status(400).send(err);
     });
   }
 };
